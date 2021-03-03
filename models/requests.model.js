@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 // requests model with detials of the user requests
-const requestSchema = new Schema({
+const requestcarSchema = new Schema({
   date: {
     type: String,
     required:true
@@ -11,15 +11,15 @@ const requestSchema = new Schema({
     required:true
   },
   User:{
-    type:mongoose.Schema.Types.ObjectId,
+    type:Schema.Types.ObjectId,
     ref:'User'
   },
   Sportcar:{
-    type:mongoose.Schema.Types.ObjectId,
+    type:Schema.Types.ObjectId,
     ref:'Sportcar'
   }
 });
 
-const Request = model("Request", requestSchema);
+const Requestcar = model("requestcar", requestcarSchema);
 
-module.exports = Request;
+module.exports = Requestcar;

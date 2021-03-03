@@ -20,10 +20,10 @@ const sportcarSchema = new Schema({
 
   insuranced: {type:Boolean,
     required:true},
-    Model:{type:Number,
+
+  Model:{type:Number,
       required:true},
-  User:{
-    type:mongoose.Schema.Types.ObjectId,
+  User:{type:Schema.Types.ObjectId,
     ref:'User'
   }
 });
