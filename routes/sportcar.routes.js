@@ -4,6 +4,7 @@ const router = express.Router()
 let UserModel = require('../models/User.model')
 let SportcarModel = require('../models/sportcar.model')
 let RequestcarModel =require('../models/requests.model')
+const Sportcar = require('../models/sportcar.model')
 
 
                       /// user routes starts here!!
@@ -108,11 +109,11 @@ router.get('/Sportcar', (req, res) => {
 router.post('/create', (req, res) => {  
  const {carName, Tansmission, wheelDrive, Horsepower, insuranced, Model} = req.body;
 
- UserModel.create({carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive,
-                   Horsepower:Horsepower, insuranced:insuranced, Model:Model})
+ SportcarModel.create({carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive, Horsepower:Horsepower, insuranced:insuranced, Model:Model})
        .then((response) => {
             res.status(200).json(response)
        })
+       console.log(Sportcar)
        .catch((err) => {
             res.status(500).json({
                  error: 'Something went wrong while loading data',
@@ -137,7 +138,7 @@ router.get('/Sportcar/:SportcarId', (req, res) => {
 
 //  DELETE requests by sportcar id ..sportcar/:id
 router.delete('/Sportcar/:id', (req, res) => {
- UserModel.findByIdAndDelete(req.params.id)
+ SportcarModel.findByIdAndDelete(req.params.id)
        .then((response) => {
             res.status(200).json(response)
        })
