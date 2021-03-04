@@ -25,7 +25,7 @@ router.get('/User', (req, res) => {
 
 // user POST requests
 
-router.post('/create', (req, res) => {  
+router.post('/user/create', (req, res) => {  
     const {fname, sname, email, password} = req.body;
 
     UserModel.create({fname: fname, sname: sname, email: email, password:password})
@@ -106,7 +106,7 @@ router.get('/Sportcar', (req, res) => {
 
 // sportcar POST requests
 
-router.post('/create', (req, res) => {  
+router.post('/sportcar/create', (req, res) => {  
  const {carName, Tansmission, wheelDrive, Horsepower, insuranced, Model} = req.body;
 
  SportcarModel.create({carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive, Horsepower:Horsepower, insuranced:insuranced, Model:Model})
@@ -187,7 +187,7 @@ router.get('/requestcar', (req, res) => {
 
 // requestcar POST requests
 
-router.post('/create', (req, res) => {  
+router.post('/requestcar/create', (req, res) => {  
  const {date, address} = req.body;
 
  RequestcarModel.create({date:date, address:address})

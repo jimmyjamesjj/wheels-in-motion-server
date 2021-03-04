@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 
 const UserModel = require('../models/User.model');
 
-router.post('/signup', (req, res) => {
+router.post('/Signup', (req, res) => {
     const {fname, sname, email, password } = req.body;
     console.log(fname, sname, email, password);
  
     // -----SERVER SIDE VALIDATION ----------
-    
+   /* 
     if (!fname || !sname || !email || !password) {
         res.status(500)
           .json({
@@ -31,11 +31,11 @@ router.post('/signup', (req, res) => {
       });
       return;  
     }
-     
+     */
     // creating a salt to hash the password 
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(password, salt);
-    UserModel.create({fname: fname, sname: sname, email, passwordHash: hash})
+    UserModel.create({fname: fname, sname: sname, email, password: hash})
       .then((user) => {
         // ensuring that we don't share the hash as well with the user
         user.passwordHash = "***";
@@ -63,31 +63,32 @@ router.post('/signin', (req, res) => {
 
     // -----SERVER SIDE VALIDATION ----------
     
-    if ( !email || !password) {
-        res.status(500).json({
-            error: 'Please enter Username. email and password',
-       })
-      return;  
-    }
-    const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-    if (!myRegex.test(email)) {
-        res.status(500).json({
-            error: 'Email format not correct',
-        })
-        return;  
-    }
+    // if ( !email || !password) {
+    //     res.status(500).json({
+    //         error: 'Please enter Username. email and password',
+    //    })
+    //   return;  
+    // }
+    // const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
+    // if (!myRegex.test(email)) {
+    //     res.status(500).json({
+    //         error: 'Email format not correct',
+    //     })
+    //     return;  
+    // }
     
   
     // Find if the user exists in the database 
     UserModel.findOne({email})
       .then((userData) => {
+        console.log(password)
            //check if passwords match
-          bcrypt.compare(password, userData.passwordHash)
+          bcrypt.compare(password, userData.password)
             .then((doesItMatch) => {
                 //if it matches
                 if (doesItMatch) {
                   // req.session is the special object that is available to you
-                  userData.passwordHash = "***";
+                  userData.password = "***";
                   req.session.loggedInUser = userData;
                   res.status(200).json(userData)
                 }
@@ -99,7 +100,8 @@ router.post('/signin', (req, res) => {
                   return; 
                 }
             })
-            .catch(() => {
+            .catch((error) => {
+              console.log(error)
                 res.status(500).json({
                     error: 'Email format not correct',
                 })
