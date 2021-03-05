@@ -2,6 +2,8 @@ const { Schema, model } = require("mongoose");
 
 // sportcar model with detials of the sport car
 const sportcarSchema = new Schema({
+  image:{type: String,
+    },
   carName: {
     type: String,
     required:true
@@ -21,7 +23,7 @@ const sportcarSchema = new Schema({
   insuranced: {type:Boolean,
     required:true},
 
-  Model:{type:Number,
+  carModel:{type:Number,
       required:true},
   User:{type:Schema.Types.ObjectId,
     ref:'User'

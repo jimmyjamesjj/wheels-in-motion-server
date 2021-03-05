@@ -106,14 +106,13 @@ router.get('/Sportcar', (req, res) => {
 
 // sportcar POST requests
 
-router.post('/sportcar/create', (req, res) => {  
- const {carName, Tansmission, wheelDrive, Horsepower, insuranced, Model} = req.body;
+router.post('/Sportcar/create', (req, res) => {  
+ const {image, carName, Tansmission, wheelDrive, Horsepower, insuranced, carModel} = req.body;
 
- SportcarModel.create({carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive, Horsepower:Horsepower, insuranced:insuranced, Model:Model})
+ SportcarModel.create({image:image, carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive, Horsepower:Horsepower, insuranced:insuranced, carModel:carModel})
        .then((response) => {
             res.status(200).json(response)
        })
-       console.log(Sportcar)
        .catch((err) => {
             res.status(500).json({
                  error: 'Something went wrong while loading data',
@@ -153,9 +152,9 @@ router.delete('/Sportcar/:id', (req, res) => {
 // PATCH requests to ..sportcar/:id
 router.patch('/Sportcar/:id', (req, res) => {
  let id = req.params.id
- const {carName, Tansmission, wheelDrive, Horsepower, insuranced, Model} = req.body;
- SportcarModel.findByIdAndUpdate(id, {$set: {carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive,
-                                    Horsepower:Horsepower, insuranced:insuranced, Model:Model}}, {new: true})
+ const {image, carName, Tansmission, wheelDrive, Horsepower, insuranced, carModel} = req.body;
+ SportcarModel.findByIdAndUpdate(id, {$set: {image:image, carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive,
+                                    Horsepower:Horsepower, insuranced:insuranced, carModel:carModel}}, {new: true})
        .then((response) => {
             res.status(200).json(response)
        })

@@ -43,6 +43,9 @@ app.use('/api', wheelsInMotion);
 const authRoutes = require("./routes/auth.routes");
 app.use("/api", authRoutes);
 
+const cloudinaryRoutes = require("./routes/cloudinary.routes");
+app.use("/api", cloudinaryRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);
 
