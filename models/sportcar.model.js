@@ -8,7 +8,7 @@ const sportcarSchema = new Schema({
     type: String,
     required:true
   },
-  Tansmission: {
+  Transmission: {
     type: String,
     required:true
   },
@@ -20,7 +20,7 @@ const sportcarSchema = new Schema({
   Horsepower: {type:String,
   required:true},
 
-  insuranced: {type:Boolean,
+  insurance: {type:Boolean,
     required:true},
 
   carModel:{type:Number,

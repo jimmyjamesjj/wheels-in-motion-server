@@ -107,9 +107,10 @@ router.get('/Sportcar', (req, res) => {
 // sportcar POST requests
 
 router.post('/Sportcar/create', (req, res) => {  
- const {image, carName, Tansmission, wheelDrive, Horsepower, insuranced, carModel} = req.body;
+ const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
 
- SportcarModel.create({image:image, carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive, Horsepower:Horsepower, insuranced:insuranced, carModel:carModel})
+ SportcarModel.create({image:image, carName:carName, Transmission:Transmission, wheelDrive:wheelDrive, 
+                         Horsepower:Horsepower, insurance:insurance, carModel:carModel})
        .then((response) => {
             res.status(200).json(response)
        })
@@ -152,9 +153,9 @@ router.delete('/Sportcar/:id', (req, res) => {
 // PATCH requests to ..sportcar/:id
 router.patch('/Sportcar/:id', (req, res) => {
  let id = req.params.id
- const {image, carName, Tansmission, wheelDrive, Horsepower, insuranced, carModel} = req.body;
- SportcarModel.findByIdAndUpdate(id, {$set: {image:image, carName:carName, Tansmission:Tansmission, wheelDrive:wheelDrive,
-                                    Horsepower:Horsepower, insuranced:insuranced, carModel:carModel}}, {new: true})
+ const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
+ SportcarModel.findByIdAndUpdate(id, {$set: {image:image, carName:carName, Transmission:Transmission,
+      wheelDrive:wheelDrive, Horsepower:Horsepower, insurance:insurance, carModel:carModel}}, {new: true})
        .then((response) => {
             res.status(200).json(response)
        })

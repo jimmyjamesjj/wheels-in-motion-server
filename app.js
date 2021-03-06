@@ -37,8 +37,8 @@ const allRoutes = require('./routes');
 app.use('/api', allRoutes);
 
 // user route
-const wheelsInMotion = require('./routes/sportcar.routes');
-app.use('/api', wheelsInMotion);
+const sportcar = require('./routes/sportcar.routes');
+app.use('/api', sportcar);
 //authontecation route
 const authRoutes = require("./routes/auth.routes");
 app.use("/api", authRoutes);
