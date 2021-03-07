@@ -91,10 +91,10 @@ router.patch('/User/:id', (req, res) => {
                     /// sportcar routes starts here !!
 
 // sportcar GET requests 
-router.get('/Sportcar', (req, res) => {
+router.get('/sportcars', (req, res) => {
   SportcarModel.find()
-       .then((Sportcar) => {
-            res.status(200).json(Sportcar)
+       .then((sportcars) => {
+            res.status(200).json(sportcars)
        })
        .catch((err) => {
             res.status(500).json({
@@ -106,7 +106,7 @@ router.get('/Sportcar', (req, res) => {
 
 // sportcar POST requests
 
-router.post('/Sportcar/create', (req, res) => {  
+router.post('/sportcars/create', (req, res) => {  
  const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
 
  SportcarModel.create({image:image, carName:carName, Transmission:Transmission, wheelDrive:wheelDrive, 
@@ -123,8 +123,8 @@ router.post('/Sportcar/create', (req, res) => {
 })
 
 // GET requests to ..sportcar/:sportcarId
-router.get('/Sportcar/:SportcarId', (req, res) => {
- SportcarModel.findById(req.params.SportcarId)
+router.get('/sportcars/:sportcarsId', (req, res) => {
+ SportcarModel.findById(req.params.sportcarsId)
   .then((response) => {
        res.status(200).json(response)
   })
@@ -137,7 +137,7 @@ router.get('/Sportcar/:SportcarId', (req, res) => {
 })
 
 //  DELETE requests by sportcar id ..sportcar/:id
-router.delete('/Sportcar/:id', (req, res) => {
+router.delete('/sportcars/:id', (req, res) => {
  SportcarModel.findByIdAndDelete(req.params.id)
        .then((response) => {
             res.status(200).json(response)
@@ -151,7 +151,7 @@ router.delete('/Sportcar/:id', (req, res) => {
 })
 
 // PATCH requests to ..sportcar/:id
-router.patch('/Sportcar/:id', (req, res) => {
+router.patch('/sportcar/:id', (req, res) => {
  let id = req.params.id
  const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
  SportcarModel.findByIdAndUpdate(id, {$set: {image:image, carName:carName, Transmission:Transmission,
