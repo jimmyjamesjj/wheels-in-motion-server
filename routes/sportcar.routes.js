@@ -10,18 +10,18 @@ const Sportcar = require('../models/sportcar.model')
                       /// user routes starts here!!
 
 // user GET requests 
-router.get('/User', (req, res) => {
-     UserModel.find()
-          .then((User) => {
-               res.status(200).json(User)
-          })
-          .catch((err) => {
-               res.status(500).json({
-                    error: 'Something went wrong while loading data',
-                    message: err
-               })
-          })         
-})
+// router.get('/user', (req, res) => {
+//      UserModel.find()
+//           .then((User) => {
+//                res.status(200).json(User)
+//           })
+//           .catch((err) => {
+//                res.status(500).json({
+//                     error: 'Something went wrong while loading data',
+//                     message: err
+//                })
+//           })         
+// })
 
 // user POST requests
 
@@ -108,9 +108,9 @@ router.get('/sportcars', (req, res) => {
 
 router.post('/sportcars/create', (req, res) => {  
  const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
-
+   let user = req.session.loggedInUser
  SportcarModel.create({image:image, carName:carName, Transmission:Transmission, wheelDrive:wheelDrive, 
-                         Horsepower:Horsepower, insurance:insurance, carModel:carModel})
+                         Horsepower:Horsepower, insurance:insurance, carModel:carModel, User:user._id})
        .then((response) => {
             res.status(200).json(response)
        })
@@ -154,7 +154,7 @@ router.delete('/sportcars/:id', (req, res) => {
 router.patch('/sportcars/:id', (req, res) => {
  let id = req.params.id
  const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
- SportcarModel.findByIdAndUpdate(id, {$set: {image:image, carName:carName, Transmission:Transmission,
+ SportcarModel.findByIdAndUpdate(id, {$set: { carName:carName, Transmission:Transmission,
       wheelDrive:wheelDrive, Horsepower:Horsepower, insurance:insurance, carModel:carModel}}, {new: true})
        .then((response) => {
             res.status(200).json(response)

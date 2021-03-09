@@ -9,29 +9,29 @@ router.post('/Signup', (req, res) => {
     console.log(fname, sname, email, password);
  
     // -----SERVER SIDE VALIDATION ----------
-   /* 
-    if (!fname || !sname || !email || !password) {
-        res.status(500)
-          .json({
-            errorMessage: 'Please enter first name, second name, email and password'
-          });
-        return;  
-    }
-    const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-    if (!myRegex.test(email)) {
-        res.status(500).json({
-          errorMessage: 'Email format not correct'
-        });
-        return;  
-    }
-    const myPassRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
-    if (!myPassRegex.test(password)) {
-      res.status(500).json({
-        errorMessage: 'Password needs to have atleast 8 characters, a number and an Uppercase alphabet'
-      });
-      return;  
-    }
-     */
+    
+    // if (!fname || !sname || !email || !password) {
+    //     res.status(500)
+    //       .json({
+    //         errorMessage: 'Please enter first name, second name, email and password'
+    //       });
+    //     return;  
+    // }
+    // const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
+    // if (!myRegex.test(email)) {
+    //     res.status(500).json({
+    //       errorMessage: 'Email format not correct'
+    //     });
+    //     return;  
+    // }
+    // const myPassRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
+    // if (!myPassRegex.test(password)) {
+    //   res.status(500).json({
+    //     errorMessage: 'Password needs to have atleast 8 characters, a number and an Uppercase alphabet'
+    //   });
+    //   return;  
+    // }
+     
     // creating a salt to hash the password 
     let salt = bcrypt.genSaltSync(10);
     let hash = bcrypt.hashSync(password, salt);
@@ -89,6 +89,7 @@ router.post('/signin', (req, res) => {
                 if (doesItMatch) {
                   // req.session is the special object that is available to you
                   userData.password = "***";
+                  console.log(userData)
                   req.session.loggedInUser = userData;
                   res.status(200).json(userData)
                 }
