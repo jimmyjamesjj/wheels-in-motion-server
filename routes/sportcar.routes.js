@@ -153,7 +153,7 @@ router.delete('/sportcars/:id', (req, res) => {
 // PATCH requests to ..sportcar/:id
 router.patch('/sportcars/:id', (req, res) => {
  let id = req.params.id
- const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
+ const {carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
  SportcarModel.findByIdAndUpdate(id, {$set: { carName:carName, Transmission:Transmission,
       wheelDrive:wheelDrive, Horsepower:Horsepower, insurance:insurance, carModel:carModel}}, {new: true})
        .then((response) => {
