@@ -91,6 +91,7 @@ router.post('/signin', (req, res) => {
                   userData.password = "***";
                   console.log(userData)
                   req.session.loggedInUser = userData;
+                  
                   res.status(200).json(userData)
                 }
                 //if passwords do not match

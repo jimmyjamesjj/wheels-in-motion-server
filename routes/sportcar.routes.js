@@ -109,8 +109,9 @@ router.get('/sportcars', (req, res) => {
 router.post('/sportcars/create', (req, res) => {  
  const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
    let user = req.session.loggedInUser
+   
  SportcarModel.create({image:image, carName:carName, Transmission:Transmission, wheelDrive:wheelDrive, 
-                         Horsepower:Horsepower, insurance:insurance, carModel:carModel, User:user._id})
+                         Horsepower:Horsepower, insurance:insurance, carModel:carModel, User:user._id })
        .then((response) => {
             res.status(200).json(response)
        })
@@ -187,10 +188,13 @@ router.get('/requestcar', (req, res) => {
 
 // requestcar POST requests
 
-router.post('/requestcar/create', (req, res) => {  
+router.post('/requestcar/create/:sportcarid', (req, res) => {  
  const {date, address} = req.body;
 
- RequestcarModel.create({date:date, address:address})
+ // grab the logginedid user and the car plus the carid
+ let user =req.session.loggedInUser
+ let sportcarId= req.params.sportcarid
+ RequestcarModel.create({date:date, address:address, User:user._id, Sportcar:sportcarId})
        .then((response) => {
             res.status(200).json(response)
        })
@@ -203,6 +207,7 @@ router.post('/requestcar/create', (req, res) => {
 })
 
 // GET requestcar to ..requestcar/:requestcarId
+
 router.get('/requestcar/:requestcarId', (req, res) => {
 RequestcarModel.findById(req.params.requestId)
   .then((response) => {
@@ -233,8 +238,8 @@ router.delete('/requestcar/:id', (req, res) => {
 // PATCH requestcar to ..requestcar/:id
 router.patch('/requestcar/:id', (req, res) => {
  let id = req.params.id
- const {date, address} = req.body;
- RequestcarModel.findByIdAndUpdate(id, {$set: {date:date, address:address}}, {new: true})
+ const {date, address, email} = req.body;
+ RequestcarModel.findByIdAndUpdate(id, {$set: {date:date, email:email, address:address}}, {new: true})
        .then((response) => {
             res.status(200).json(response)
        })

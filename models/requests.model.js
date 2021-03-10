@@ -6,6 +6,7 @@ const requestcarSchema = new Schema({
     type: String,
     required:true
   },
+  email:String,
   address: {
     type: String,
     required:true
