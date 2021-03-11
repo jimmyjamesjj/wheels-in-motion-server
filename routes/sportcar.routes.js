@@ -10,18 +10,18 @@ const Sportcar = require('../models/sportcar.model')
                       /// user routes starts here!!
 
 // user GET requests 
-// router.get('/user', (req, res) => {
-//      UserModel.find()
-//           .then((User) => {
-//                res.status(200).json(User)
-//           })
-//           .catch((err) => {
-//                res.status(500).json({
-//                     error: 'Something went wrong while loading data',
-//                     message: err
-//                })
-//           })         
-// })
+router.get('/user', (req, res) => {
+     UserModel.find()
+          .then((User) => {
+               res.status(200).json(User)
+          })
+          .catch((err) => {
+               res.status(500).json({
+                    error: 'Something went wrong while loading data',
+                    message: err
+               })
+          })         
+})
 
 // user POST requests
 
@@ -107,10 +107,10 @@ router.get('/sportcars', (req, res) => {
 // sportcar POST requests
 
 router.post('/sportcars/create', (req, res) => {  
- const {image, carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
+ const {image, carName, amount, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
    let user = req.session.loggedInUser
    
- SportcarModel.create({image:image, carName:carName, Transmission:Transmission, wheelDrive:wheelDrive, 
+ SportcarModel.create({image:image, carName:carName, amount:amount, Transmission:Transmission, wheelDrive:wheelDrive, 
                          Horsepower:Horsepower, insurance:insurance, carModel:carModel, User:user._id })
        .then((response) => {
             res.status(200).json(response)
@@ -154,8 +154,8 @@ router.delete('/sportcars/:id', (req, res) => {
 // PATCH requests to ..sportcar/:id
 router.patch('/sportcars/:id', (req, res) => {
  let id = req.params.id
- const {carName, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
- SportcarModel.findByIdAndUpdate(id, {$set: { carName:carName, Transmission:Transmission,
+ const {carName, amount, Transmission, wheelDrive, Horsepower, insurance, carModel} = req.body;
+ SportcarModel.findByIdAndUpdate(id, {$set: { carName:carName, amount:amount, Transmission:Transmission,
       wheelDrive:wheelDrive, Horsepower:Horsepower, insurance:insurance, carModel:carModel}}, {new: true})
        .then((response) => {
             res.status(200).json(response)
@@ -172,19 +172,20 @@ router.patch('/sportcars/:id', (req, res) => {
 
 
                // requestcar routes starts here!!!!
+
                // requestcar GET requests 
-router.get('/requestcar', (req, res) => {
-  RequestcarModel.find()
-       .then((requestcar) => {
-            res.status(200).json(requestcar)
-       })
-       .catch((err) => {
-            res.status(500).json({
-                 error: 'Something went wrong while loading data',
-                 message: err
-            })
-       })         
-})
+// router.get('/requestcar', (req, res) => {
+//   RequestcarModel.find()
+//        .then((requestcar) => {
+//             res.status(200).json(requestcar)
+//        })
+//        .catch((err) => {
+//             res.status(500).json({
+//                  error: 'Something went wrong while loading data',
+//                  message: err
+//             })
+//        })         
+// })
 
 // requestcar POST requests
 
@@ -208,8 +209,8 @@ router.post('/requestcar/create/:sportcarid', (req, res) => {
 
 // GET requestcar to ..requestcar/:requestcarId
 
-router.get('/requestcar/:requestcarId', (req, res) => {
-RequestcarModel.findById(req.params.requestId)
+router.get('/requestcar/:sportcarId', (req, res) => {
+RequestcarModel.find({Sportcar:req.params.sportcarId})
   .then((response) => {
        res.status(200).json(response)
   })
@@ -238,8 +239,8 @@ router.delete('/requestcar/:id', (req, res) => {
 // PATCH requestcar to ..requestcar/:id
 router.patch('/requestcar/:id', (req, res) => {
  let id = req.params.id
- const {date, address, email} = req.body;
- RequestcarModel.findByIdAndUpdate(id, {$set: {date:date, email:email, address:address}}, {new: true})
+ const {date, address} = req.body;
+ RequestcarModel.findByIdAndUpdate(id, {$set: {date:date, address:address}}, {new: true})
        .then((response) => {
             res.status(200).json(response)
        })

@@ -22,6 +22,7 @@ const sportcarSchema = new Schema({
 
   insurance: {type:String,
     required:true},
+    amount:String,
 
   carModel:{type:Number,
       required:true},
